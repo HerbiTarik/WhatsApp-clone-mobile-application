@@ -3,11 +3,14 @@ import backgroundImage from "../assets/images/droplet.jpeg";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
 import colors from '../constants/colors';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 
 const ChatScreen = ({navigation}) => {
 
     const  [messageText, setMessageText] = useState("");
+    const sendMessage = useCallback(() => {
+        setMessageText("");
+    }, [messageText]);
 
     console.log(messageText);
   return (
@@ -23,7 +26,7 @@ const ChatScreen = ({navigation}) => {
             <Feather name="plus" size={24} color={colors.blue} />
         </TouchableOpacity>
 
-        <TextInput style={styles.textbox} value={messageText} onChangeText={(e) => setMessageText(e)} />
+        <TextInput style={styles.textbox} value={messageText} onChangeText={(e) => setMessageText(e)} onSubmitEditing={sendMessage} />
 
         {messageText === "" &&
         <TouchableOpacity 
@@ -35,7 +38,7 @@ const ChatScreen = ({navigation}) => {
         {messageText !== "" &&
         <TouchableOpacity 
             style={{...styles.mediaButton, ...styles.sendButton}}
-            onPress={() => console.log("pressed!")}>
+            onPress={sendMessage}>
             <Feather name="send" size={20} color={"white"} />
         </TouchableOpacity>
         } 
