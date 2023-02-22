@@ -1,11 +1,9 @@
 import { View, Text, StyleSheet, Button } from 'react-native';
 
-const ChatListScreen = ({navigation}) => {
+const ChatScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
-      <Text>Chat list screen</Text>
-
-      <Button title="Go to Chat Screen" onPress={() => navigation.navigate("ChatScreen")} />
+      <Text>Chat screen</Text>
     </View>
   )
 }
@@ -17,4 +15,4 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     }
 })
-export default ChatListScreen;
+export default ChatScreen;
