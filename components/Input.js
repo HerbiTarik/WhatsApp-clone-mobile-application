@@ -1,14 +1,18 @@
 import { View, Text, StyleSheet, TextInput } from 'react-native'
 import colors from '../constants/colors'
+import { FontAwesome } from '@expo/vector-icons';
 
-const Input = ({label}) => {
+const Input = props => {
   return (
     <View style={styles.container}>
-        <Text>{label}</Text>
+        <Text>{props.label}</Text>
 
         <View style={styles.inputContainer}>
+        {props.icon && 
+            <props.iconPack name={props.icon} size={props.iconSize || 20} style={styles.icon} />
+        }
             <TextInput />
-        </View>
+            </View>
     </View>
   )
 }
@@ -23,7 +27,12 @@ const styles = StyleSheet.create({
         paddingVertical: 15,
         borderRadius: 2,
         backgroundColor: colors.nearlyWhite,
-
+        flexDirection: "row",
+        alignItems: 'center',
+    },
+    icon: {
+        marginRight: 10,
+        color: colors.gray,
     }
 })
 
