@@ -12,13 +12,17 @@ const ChatScreen = ({navigation}) => {
 
     <View style={styles.inputContainer}>
 
-        <TouchableOpacity onPress={() => console.log("pressed!")}>
+        <TouchableOpacity 
+            style={styles.mediaButton}
+            onPress={() => console.log("pressed!")}>
             <Feather name="plus" size={24} color={colors.blue} />
         </TouchableOpacity>
 
-        <TextInput />
+        <TextInput style={styles.textbox} />
 
-        <TouchableOpacity onPress={() => console.log("pressed!")}>
+        <TouchableOpacity 
+            style={styles.mediaButton}
+            onPress={() => console.log("pressed!")}>
             <Feather name="camera" size={24} color={colors.blue} />
         </TouchableOpacity>
         
@@ -39,7 +43,22 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         paddingVertical: 8,
         paddingHorizontal: 10,
-        height: 50
+        height: 50,
+        // alignItems: "center",
+    },
+    textbox: {
+        flex: 1,
+        borderWidth: 1,
+        borderRadius: 50,
+        borderColor: colors.lightGray,
+        marginHorizontal: 15,
+        paddingHorizontal: 12,
+    },
+    mediaButton: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 35,
+
     }
 })
 export default ChatScreen;
