@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Button, ImageBackground, TextInput, TouchableOpacity} from 'react-native';
+import { View, Text, StyleSheet, Button, ImageBackground, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform} from 'react-native';
 import backgroundImage from "../assets/images/droplet.jpeg";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
@@ -12,37 +12,40 @@ const ChatScreen = ({navigation}) => {
         setMessageText("");
     }, [messageText]);
 
-    console.log(messageText);
   return (
    <SafeAreaView edges={['right','left','buttom']} style={styles.container}>
+
+   <KeyboardAvoidingView style={styles.screen} behavior={Platform.OS === 'ios' ? "padding" : undefined} keyboardVerticalOffset={100}>
+
     <ImageBackground source={backgroundImage} style={styles.backgroundImage}>
     </ImageBackground>
-
+    
     <View style={styles.inputContainer}>
-
-        <TouchableOpacity 
-            style={styles.mediaButton}
-            onPress={() => console.log("pressed!")}>
-            <Feather name="plus" size={24} color={colors.blue} />
-        </TouchableOpacity>
-
-        <TextInput style={styles.textbox} value={messageText} onChangeText={(e) => setMessageText(e)} onSubmitEditing={sendMessage} />
-
-        {messageText === "" &&
-        <TouchableOpacity 
-            style={styles.mediaButton}
+    
+    <TouchableOpacity 
+    style={styles.mediaButton}
+    onPress={() => console.log("pressed!")}>
+    <Feather name="plus" size={24} color={colors.blue} />
+    </TouchableOpacity>
+    
+    <TextInput style={styles.textbox} value={messageText} onChangeText={(e) => setMessageText(e)} onSubmitEditing={sendMessage} />
+    
+    {messageText === "" &&
+    <TouchableOpacity 
+    style={styles.mediaButton}
             onPress={() => console.log("pressed!")}>
             <Feather name="camera" size={24} color={colors.blue} />
-        </TouchableOpacity>
+            </TouchableOpacity>
         }
         {messageText !== "" &&
         <TouchableOpacity 
-            style={{...styles.mediaButton, ...styles.sendButton}}
-            onPress={sendMessage}>
-            <Feather name="send" size={20} color={"white"} />
+        style={{...styles.mediaButton, ...styles.sendButton}}
+        onPress={sendMessage}>
+        <Feather name="send" size={20} color={"white"} />
         </TouchableOpacity>
-        } 
+    } 
     </View>
+    </KeyboardAvoidingView>
    </SafeAreaView>
   )
 }
@@ -51,6 +54,9 @@ const styles = StyleSheet.create({
     container: {
         flex: 1, 
         flexDirection: 'column'
+    },
+    screen: {
+        flex: 1,
     },
     backgroundImage: {
         flex: 1,
