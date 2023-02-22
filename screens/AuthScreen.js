@@ -3,6 +3,7 @@ import PageContainer from '../components/PageContainer';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Input from '../components/Input';
 import { FontAwesome, Feather } from '@expo/vector-icons';
+import SubmitButton from '../components/SubmitButton';
 
 const AuthScreen = () => {
   return (
@@ -12,6 +13,7 @@ const AuthScreen = () => {
         <Input label="Last name" icon="user-o" iconPack={FontAwesome} iconSize={20} />
         <Input label="Email" icon="mail" iconPack={Feather} iconSize={20} />
         <Input label="Password" icon="lock" iconPack={Feather} iconSize={20} />
+        <SubmitButton />
       </PageContainer>
     </SafeAreaView>
   )
