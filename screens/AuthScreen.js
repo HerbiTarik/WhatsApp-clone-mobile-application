@@ -1,25 +1,42 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import PageContainer from '../components/PageContainer';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Input from '../components/Input';
-import { FontAwesome, Feather } from '@expo/vector-icons';
-import SubmitButton from '../components/SubmitButton';
+import SignUpForm from '../components/SignUpForm';
+import SignInForm from '../components/SignInForm';
+import { useState } from 'react';
+import colors from '../constants/colors';
+
 
 const AuthScreen = () => {
+
+  const [isSignUp, setIsSignUp] = useState(false);
+
   return (
     <SafeAreaView style={{flex: 1}}>
       <PageContainer >
-        <Input label="First name" icon="user-o" iconPack={FontAwesome} iconSize={20} />
-        <Input label="Last name" icon="user-o" iconPack={FontAwesome} iconSize={20} />
-        <Input label="Email" icon="mail" iconPack={Feather} iconSize={20} />
-        <Input label="Password" icon="lock" iconPack={Feather} iconSize={20} />
-        <SubmitButton title="Sign up" onPress={() => console.log("Button pressed")} style={{marginTop: 20}} />
+      {
+        isSignUp ? <SignUpForm /> : <SignInForm />
+      }
+
+      <TouchableOpacity onPress={() => setIsSignUp(prevState => !prevState)} style={styles.linkContainer}>
+        <Text style={styles.link} >{`Switch to ${isSignUp ? "sign in" : "sign up"}`}</Text>
+      </TouchableOpacity>
       </PageContainer>
     </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
+  linkContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: 15
+  },
+  link: {
+    color: colors.blue,
+    fontFamily: 'medium',
+    letterSpacing: 0.3
 
+  }
 })
 export default AuthScreen;
