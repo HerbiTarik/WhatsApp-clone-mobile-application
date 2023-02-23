@@ -1,21 +1,11 @@
 import Input from '../components/Input'
 import { FontAwesome, Feather } from '@expo/vector-icons'
 import SubmitButton from '../components/SubmitButton'
-import {
-    validateEmail,
-    validateString,
-    validatePassword,
-} from '../utils/validationConstraints'
+import { validateInput } from '../utils/formActions'
 
-const SignUpForm = () => {
+const SignUpForm = (props) => {
     const inputChangedHandler = (inputId, inputValue) => {
-        if (inputId === 'firstName' || inputId === 'lastName') {
-            console.log(validateString(inputId, inputValue))
-        } else if (inputId === 'email') {
-            console.log(validateEmail(inputId, inputValue))
-        } else if (inputId === 'password') {
-            console.log(validatePassword(inputId, inputValue))
-        }
+        console.log(validateInput(inputId, inputValue))
     }
     return (
         <>
