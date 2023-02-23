@@ -1,12 +1,29 @@
 import Input from '../components/Input'
 import { FontAwesome, Feather } from '@expo/vector-icons'
 import SubmitButton from '../components/SubmitButton'
-import { useState } from 'react'
+import { validate } from 'validate.js'
 
 const SignUpForm = () => {
     const inputChangedHandler = (inputId, inputValue) => {
-        console.log('InputId: ' + inputId)
-        console.log('InputId: ' + inputValue)
+        if (inputId === 'firstName' || inputId === 'lastName') {
+            const constraints = {
+                presence: { allowEmpty: false },
+            }
+
+            if (inputValue !== '') {
+                constraints.format = {
+                    pattern: '[a-z]+',
+                    flags: 'i',
+                    message: 'Value can only contain letters',
+                }
+            }
+
+            console.log(
+                validate({ [inputId]: inputValue }, { [inputId]: constraints })
+            )
+        } else if (inputId === 'email') {
+        } else if (inputId === 'password') {
+        }
     }
     return (
         <>
