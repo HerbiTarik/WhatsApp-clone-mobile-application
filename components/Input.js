@@ -18,7 +18,11 @@ const Input = (props) => {
                         style={styles.icon}
                     />
                 )}
-                <TextInput style={styles.input} onChangeText={onChangeText} />
+                <TextInput
+                    style={styles.input}
+                    onChangeText={onChangeText}
+                    {...props}
+                />
             </View>
 
             {props.errorText && (

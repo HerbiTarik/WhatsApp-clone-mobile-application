@@ -5,10 +5,19 @@ import SubmitButton from '../components/SubmitButton'
 const SignInForm = (props) => {
     return (
         <>
-            <Input label="Email" icon="mail" iconPack={Feather} iconSize={20} />
+            <Input
+                label="Email"
+                icon="mail"
+                iconPack={Feather}
+                iconSize={20}
+                keyboardType="email-address"
+                autoCapitalize="none"
+            />
             <Input
                 label="Password"
                 icon="lock"
+                autoCapitalize="none"
+                securseTextEntry
                 iconPack={Feather}
                 iconSize={20}
             />

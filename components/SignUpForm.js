@@ -23,6 +23,7 @@ const SignUpForm = () => {
                 id="firstName"
                 label="First name"
                 icon="user-o"
+                autoCapitalize="none"
                 iconPack={FontAwesome}
                 iconSize={20}
                 onInputChanged={inputChangedHandler}
@@ -31,6 +32,7 @@ const SignUpForm = () => {
                 id="lastName"
                 label="Last name"
                 icon="user-o"
+                autoCapitalize="none"
                 iconPack={FontAwesome}
                 iconSize={20}
                 onInputChanged={inputChangedHandler}
@@ -39,6 +41,8 @@ const SignUpForm = () => {
                 id="email"
                 label="Email"
                 icon="mail"
+                keyboardType="email-address"
+                autoCapitalize="none"
                 iconPack={Feather}
                 iconSize={20}
                 onInputChanged={inputChangedHandler}
@@ -47,6 +51,8 @@ const SignUpForm = () => {
                 id="password"
                 label="Password"
                 icon="lock"
+                autoCapitalize="none"
+                securseTextEntry
                 iconPack={Feather}
                 iconSize={20}
                 onInputChanged={inputChangedHandler}
