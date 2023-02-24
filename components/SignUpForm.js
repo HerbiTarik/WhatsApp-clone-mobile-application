@@ -5,20 +5,34 @@ import { validateInput } from '../utils/formActions'
 import { useReducer } from 'react'
 
 const reducer = (state, action) => {
-    const { validationResult } = action
+    const { validationResult, inputId } = action
+
+    const updatedValidities = {
+        ...state.inputValidities,
+        [inputId]: validationResult,
+    }
+
+    let updatedFormIsValid = true
+
+    for (const key in updatedValidities) {
+        if (updatedValidities[key] !== undefined) {
+            updatedFormIsValid = false
+            break
+        }
+    }
     return {
-        ...state,
-        formIsValide: validationResult === undefined,
+        inputValidities: updatedValidities,
+        formIsValide: updatedFormIsValid,
     }
 }
 
 const initialState = {
-    // inputValidities: {
-    //     firstName: false,
-    //     lastName: false,
-    //     email: false,
-    //     password: false,
-    // },
+    inputValidities: {
+        firstName: false,
+        lastName: false,
+        email: false,
+        password: false,
+    },
     formIsValide: false,
 }
 
@@ -27,7 +41,7 @@ const SignUpForm = (props) => {
 
     const inputChangedHandler = (inputId, inputValue) => {
         const result = validateInput(inputId, inputValue)
-        dispatchFormState({ validationResult: result })
+        dispatchFormState({ inputId, validationResult: result })
     }
     return (
         <>
