@@ -2,10 +2,32 @@ import Input from '../components/Input'
 import { FontAwesome, Feather } from '@expo/vector-icons'
 import SubmitButton from '../components/SubmitButton'
 import { validateInput } from '../utils/formActions'
+import { useReducer } from 'react'
+
+const reducer = (state, action) => {
+    const { validationResult } = action
+    return {
+        ...state,
+        formIsValide: validationResult === undefined,
+    }
+}
+
+const initialState = {
+    // inputValidities: {
+    //     firstName: false,
+    //     lastName: false,
+    //     email: false,
+    //     password: false,
+    // },
+    formIsValide: false,
+}
 
 const SignUpForm = (props) => {
+    const [formState, dispatchFormState] = useReducer(reducer, initialState)
+
     const inputChangedHandler = (inputId, inputValue) => {
-        console.log(validateInput(inputId, inputValue))
+        const result = validateInput(inputId, inputValue)
+        dispatchFormState({ validationResult: result })
     }
     return (
         <>
@@ -51,6 +73,7 @@ const SignUpForm = (props) => {
                 title="Sign up"
                 onPress={() => console.log('Button pressed')}
                 style={{ marginTop: 20 }}
+                disabled={!formState.formIsValide}
             />
         </>
     )
