@@ -2,11 +2,27 @@ import Input from '../components/Input'
 import { Feather } from '@expo/vector-icons'
 import SubmitButton from '../components/SubmitButton'
 import { validateInput } from '../utils/formActions'
+import { reducer } from '../utils/reducers/formReducer'
+import { useReducer, useCallback } from 'react'
+
+const initialState = {
+    inputValidities: {
+        email: false,
+        password: false,
+    },
+    formIsValid: false,
+}
 
 const SignInForm = (props) => {
-    const inputChangedHandler = (inputId, inputValue) => {
-        console.log(validateInput(inputId, inputValue))
-    }
+    const [formState, dispatchFormState] = useReducer(reducer, initialState)
+
+    const inputChangedHandler = useCallback(
+        (inputId, inputValue) => {
+            const result = validateInput(inputId, inputValue)
+            dispatchFormState({ inputId, validationResult: result })
+        },
+        [dispatchFormState]
+    )
 
     return (
         <>
@@ -34,6 +50,7 @@ const SignInForm = (props) => {
                 title="Sign in"
                 onPress={() => console.log('Button pressed')}
                 style={{ marginTop: 20 }}
+                disabled={!formState.formIsValid}
             />
         </>
     )

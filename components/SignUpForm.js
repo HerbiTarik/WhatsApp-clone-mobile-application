@@ -2,29 +2,8 @@ import Input from '../components/Input'
 import { FontAwesome, Feather } from '@expo/vector-icons'
 import SubmitButton from '../components/SubmitButton'
 import { validateInput } from '../utils/formActions'
-import { useReducer } from 'react'
-
-const reducer = (state, action) => {
-    const { validationResult, inputId } = action
-
-    const updatedValidities = {
-        ...state.inputValidities,
-        [inputId]: validationResult,
-    }
-
-    let updatedFormIsValid = true
-
-    for (const key in updatedValidities) {
-        if (updatedValidities[key] !== undefined) {
-            updatedFormIsValid = false
-            break
-        }
-    }
-    return {
-        inputValidities: updatedValidities,
-        formIsValide: updatedFormIsValid,
-    }
-}
+import { useReducer, useCallback } from 'react'
+import { reducer } from '../utils/reducers/formReducer'
 
 const initialState = {
     inputValidities: {
@@ -33,16 +12,19 @@ const initialState = {
         email: false,
         password: false,
     },
-    formIsValide: false,
+    formIsValid: false,
 }
 
 const SignUpForm = (props) => {
     const [formState, dispatchFormState] = useReducer(reducer, initialState)
 
-    const inputChangedHandler = (inputId, inputValue) => {
-        const result = validateInput(inputId, inputValue)
-        dispatchFormState({ inputId, validationResult: result })
-    }
+    const inputChangedHandler = useCallback(
+        (inputId, inputValue) => {
+            const result = validateInput(inputId, inputValue)
+            dispatchFormState({ inputId, validationResult: result })
+        },
+        [dispatchFormState]
+    )
     return (
         <>
             <Input
@@ -87,7 +69,7 @@ const SignUpForm = (props) => {
                 title="Sign up"
                 onPress={() => console.log('Button pressed')}
                 style={{ marginTop: 20 }}
-                disabled={!formState.formIsValide}
+                disabled={!formState.formIsValid}
             />
         </>
     )
