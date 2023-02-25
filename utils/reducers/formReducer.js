@@ -1,6 +1,10 @@
 export const reducer = (state, action) => {
-    const { validationResult, inputId } = action
+    const { validationResult, inputId, inputValue } = action // on peut l'écrire sous forme de "const {const inputId = action.inplutId}"
 
+    const updatedValues = {
+        ...state.inputValues,
+        [inputId]: inputValue,
+    }
     const updatedValidities = {
         ...state.inputValidities,
         [inputId]: validationResult,
@@ -15,6 +19,7 @@ export const reducer = (state, action) => {
         }
     }
     return {
+        inputValues: updatedValues,
         inputValidities: updatedValidities,
         formIsValid: updatedFormIsValid,
     }

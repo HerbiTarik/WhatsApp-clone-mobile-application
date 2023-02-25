@@ -1,7 +1,7 @@
 import Input from '../components/Input'
 import { Feather } from '@expo/vector-icons'
 import SubmitButton from '../components/SubmitButton'
-import { validateInput } from '../utils/formActions'
+import { validateInput } from '../utils/action/formActions'
 import { reducer } from '../utils/reducers/formReducer'
 import { useReducer, useCallback } from 'react'
 

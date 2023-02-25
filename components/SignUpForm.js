@@ -1,11 +1,18 @@
 import Input from '../components/Input'
 import { FontAwesome, Feather } from '@expo/vector-icons'
 import SubmitButton from '../components/SubmitButton'
-import { validateInput } from '../utils/formActions'
+import { validateInput } from '../utils/action/formActions'
 import { useReducer, useCallback } from 'react'
 import { reducer } from '../utils/reducers/formReducer'
+import { signUp } from '../utils/action/authAction'
 
 const initialState = {
+    inputValues: {
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: '',
+    },
     inputValidities: {
         firstName: false,
         lastName: false,
@@ -21,10 +28,19 @@ const SignUpForm = (props) => {
     const inputChangedHandler = useCallback(
         (inputId, inputValue) => {
             const result = validateInput(inputId, inputValue)
-            dispatchFormState({ inputId, validationResult: result })
+            dispatchFormState({ inputId, validationResult: result, inputValue })
         },
         [dispatchFormState]
     )
+
+    const authHandler = () => {
+        signUp(
+            formState.inputValues.firstName,
+            formState.inputValues.lastName,
+            formState.inputValues.email,
+            formState.inputValues.password
+        )
+    }
     return (
         <>
             <Input
@@ -63,7 +79,7 @@ const SignUpForm = (props) => {
                 label="Password"
                 icon="lock"
                 autoCapitalize="none"
-                securseTextEntry
+                secureTextEntry
                 iconPack={Feather}
                 iconSize={20}
                 onInputChanged={inputChangedHandler}
@@ -71,7 +87,7 @@ const SignUpForm = (props) => {
             />
             <SubmitButton
                 title="Sign up"
-                onPress={() => console.log('Button pressed')}
+                onPress={authHandler}
                 style={{ marginTop: 20 }}
                 disabled={!formState.formIsValid}
             />
