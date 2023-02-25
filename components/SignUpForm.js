@@ -5,9 +5,6 @@ import { validateInput } from '../utils/action/formActions'
 import { useReducer, useCallback } from 'react'
 import { reducer } from '../utils/reducers/formReducer'
 import { signUp } from '../utils/action/authAction'
-import { getFirebaseApp } from './../utils/firebaseHelper'
-
-console.log(getFirebaseApp())
 
 const initialState = {
     inputValues: {
