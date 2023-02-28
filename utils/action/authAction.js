@@ -1,5 +1,9 @@
 import { getFirebaseApp } from '../firebaseHelper'
-import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth'
+import {
+    createUserWithEmailAndPassword,
+    getAuth,
+    createUser,
+} from 'firebase/auth'
 import { getDatabase, ref, child, set } from 'firebase/database'
 
 export const signUp = async (firstName, lastName, email, password) => {
