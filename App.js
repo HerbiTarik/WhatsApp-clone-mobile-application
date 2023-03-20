@@ -10,7 +10,7 @@ import { store } from './store/store'
 
 LogBox.ignoreLogs(['AsyncStorage has been extracted'])
 
-SplashScreen.preventAutoHideAsync()
+SplashScreen.preventAutoHideAsync() //Garder l'écran d'accueil(de démarrage) visible pendant que nous récupérons des ressources
 
 export default function App() {
     const [appIsLoaded, setAppIsLoaded] = useState(false)
@@ -18,6 +18,7 @@ export default function App() {
     useEffect(() => {
         const prepare = async () => {
             try {
+                //Précharger les polices, faire les appels d'API nécessaires ici
                 await Font.loadAsync({
                     black: require('./assets/fonts/Roboto-Black.ttf'),
                     blackItalic: require('./assets/fonts/Roboto-BlackItalic.ttf'),
@@ -35,6 +36,7 @@ export default function App() {
             } catch (error) {
                 console.log(error)
             } finally {
+                //Indiquer à l'application de rendre
                 setAppIsLoaded(true)
             }
         }
@@ -44,6 +46,9 @@ export default function App() {
 
     const onLayout = useCallback(async () => {
         if (appIsLoaded) {
+            /*
+            Cela indique à l'écran de démarrage de se cacher immédiatement ! Si nous appelons ceci après `setAppIsReady`, nous pourrions voir un écran vide pendant que l'application charge son état initial et rend ses premiers pixels. Au lieu de cela, nous cachons l'écran d'accueil une fois que nous savons que la vue racine a déjà effectué la mise en page.
+            */
             await SplashScreen.hideAsync()
         }
     }, [appIsLoaded])

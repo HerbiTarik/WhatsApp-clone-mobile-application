@@ -1,9 +1,9 @@
-import Input from '../components/Input'
 import { Feather } from '@expo/vector-icons'
+import { useReducer, useCallback } from 'react'
 import SubmitButton from '../components/SubmitButton'
+import Input from '../components/Input'
 import { validateInput } from '../utils/action/formActions'
 import { reducer } from '../utils/reducers/formReducer'
-import { useReducer, useCallback } from 'react'
 
 const initialState = {
     inputValidities: {

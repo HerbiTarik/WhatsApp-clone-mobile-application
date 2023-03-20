@@ -6,11 +6,12 @@ const authSlice = createSlice({
         token: null,
         userData: null,
     },
-    reducer: {
+    reducers: {
         authenticate: (state, action) => {
             const { payload } = action
             state.token = payload.token
             state.userData = payload.userData
+            console.log(state)
         },
     },
 })

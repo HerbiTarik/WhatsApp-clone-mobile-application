@@ -8,13 +8,13 @@ import {
     KeyboardAvoidingView,
     Platform,
 } from 'react-native'
-import PageContainer from '../components/PageContainer'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import SignUpForm from '../components/SignUpForm'
-import SignInForm from '../components/SignInForm'
 import { useState } from 'react'
-import colors from '../constants/colors'
 import logo from '../assets/images/logo.png'
+import colors from '../constants/colors'
+import SignInForm from '../components/SignInForm'
+import SignUpForm from '../components/SignUpForm'
+import PageContainer from '../components/PageContainer'
 
 const AuthScreen = () => {
     const [isSignUp, setIsSignUp] = useState(false)
