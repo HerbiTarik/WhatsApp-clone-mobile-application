@@ -7,7 +7,7 @@ import { validateInput } from '../utils/action/formActions'
 import { reducer } from '../utils/reducers/formReducer'
 import { signUp } from '../utils/action/authAction'
 import SubmitButton from '../components/SubmitButton'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 const initialState = {
     inputValues: {
@@ -27,6 +27,8 @@ const initialState = {
 
 const SignUpForm = (props) => {
     const dispatch = useDispatch()
+    // const stateData = useSelector((state) => state.auth.userData) // le auth fait référence au auth de store.js
+    // console.log(stateData)
 
     const [error, setError] = useState()
     const [isLoading, setIsLoading] = useState(false)
@@ -48,7 +50,7 @@ const SignUpForm = (props) => {
 
     const authHandler = async () => {
         try {
-            setIsLoading(true)
+            setIsLoading(false)
             const action = signUp(
                 formState.inputValues.firstName,
                 formState.inputValues.lastName,
