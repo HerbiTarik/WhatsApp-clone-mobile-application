@@ -50,7 +50,7 @@ const SignUpForm = (props) => {
 
     const authHandler = async () => {
         try {
-            setIsLoading(false)
+            setIsLoading(true)
             const action = signUp(
                 formState.inputValues.firstName,
                 formState.inputValues.lastName,

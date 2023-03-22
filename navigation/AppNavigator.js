@@ -9,7 +9,7 @@ const AppNavigator = (props) => {
     const isAuth = useSelector(
         (state) => state.auth.token !== null && state.auth.token !== ''
     )
-    const didTryAutoLogin = useSelector((state) => state.auth.didTryAutoLogin)
+    const didTryAutoLogin = useSelector((state) => state.auth.didTryAutoLogin) //essayer la connexion automatique
 
     return (
         <NavigationContainer>
