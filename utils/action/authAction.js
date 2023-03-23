@@ -72,6 +72,11 @@ export const signIn = (email, password) => {
 
             if (errorCode === 'auth/email-already-in-use') {
                 message = 'This email is already in use'
+            } else if (
+                errorCode === 'auth/wrong-password' ||
+                errorCode === 'auth/user-not-found'
+            ) {
+                message = 'The username or password was incorrect'
             }
 
             throw new Error(message)

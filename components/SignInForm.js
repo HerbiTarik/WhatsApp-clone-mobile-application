@@ -7,6 +7,8 @@ import { reducer } from '../utils/reducers/formReducer'
 import { signIn } from '../utils/action/authAction'
 import { Alert } from 'react-native'
 import { useDispatch } from 'react-redux'
+import { ActivityIndicator } from 'react-native'
+import colors from '../constants/colors'
 
 const initialState = {
     inputValues: {
@@ -47,14 +49,13 @@ const SignInForm = (props) => {
                 formState.inputValues.email,
                 formState.inputValues.password
             )
-            dispatch(action)
+            await dispatch(action)
             setError(null)
         } catch (error) {
             setError(error.message)
             setIsLoading(false)
         }
     }, [dispatch, formState])
-
     return (
         <>
             <Input
