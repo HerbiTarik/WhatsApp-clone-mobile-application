@@ -10,6 +10,8 @@ import { useDispatch } from 'react-redux'
 import { ActivityIndicator } from 'react-native'
 import colors from '../constants/colors'
 
+// const isTestMode = true
+
 const initialState = {
     inputValues: {
         email: '',
@@ -67,6 +69,7 @@ const SignInForm = (props) => {
                 keyboardType="email-address"
                 autoCapitalize="none"
                 onInputChanged={inputChangedHandler}
+                // value={formState.inputValues.email}
                 errorText={formState.inputValidities['email']}
             />
             <Input
@@ -78,6 +81,7 @@ const SignInForm = (props) => {
                 iconPack={Feather}
                 iconSize={20}
                 onInputChanged={inputChangedHandler}
+                // value={formState.inputValues.password}
                 errorText={formState.inputValidities['password']}
             />
             {isLoading ? (

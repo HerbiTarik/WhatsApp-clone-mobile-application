@@ -3,16 +3,24 @@ import React from 'react'
 import colors from '../constants/colors'
 
 const SubmitButton = (props) => {
+    const enabledBgColor = props.color || colors.primary
+    const disabledBgColor = colors.lightGray
+    const bgColor = props.disabled ? disabledBgColor : enabledBgColor
 
-    const enabledBgColor = props.color || colors.primary;
-    const disabledBgColor = colors.lightGray;
-    const bgColor = props.disabled ? disabledBgColor : enabledBgColor;
-
-  return (
-   <TouchableOpacity onPress={props.disabled ? () => {} : props.onPress} style={{...styles.button, ...{backgroundColor : bgColor}, ...props.style}}>
-        <Text style={{ color: props.disabled ? colors.gray : 'white'}}>{props.title}</Text>
-   </TouchableOpacity>
-  )
+    return (
+        <TouchableOpacity
+            onPress={props.disabled ? () => {} : props.onPress}
+            style={{
+                ...styles.button,
+                ...{ backgroundColor: bgColor },
+                ...props.style,
+            }}
+        >
+            <Text style={{ color: props.disabled ? colors.gray : 'white' }}>
+                {props.title}
+            </Text>
+        </TouchableOpacity>
+    )
 }
 
 const styles = StyleSheet.create({
@@ -23,7 +31,7 @@ const styles = StyleSheet.create({
         borderRadius: 30,
         justifyContent: 'center',
         alignItems: 'center',
-    }
+    },
 })
 
 export default SubmitButton

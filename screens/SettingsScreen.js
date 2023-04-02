@@ -1,18 +1,17 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native'
+import PageTitle from './../components/PageTitle'
 
 const SettingsScreen = () => {
-  return (
-    <View style={styles.container}>
-      <Text>settings screen</Text>
-    </View>
-  )
+    return (
+        <View style={styles.container}>
+            <PageTitle text="Settings" />
+        </View>
+    )
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1, 
-        justifyContent: 'center',
-        alignItems: 'center',
-    }
+        flex: 1,
+    },
 })
-export default SettingsScreen;
+export default SettingsScreen
