@@ -1,11 +1,85 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import PageTitle from './../components/PageTitle'
+import PageContainer from './../components/PageContainer'
+import { Feather, FontAwesome } from '@expo/vector-icons'
+import { useCallback } from 'react'
+import { validateInput } from './../utils/action/formActions'
+import Input from './../components/Input'
+import { useReducer } from 'react'
+import { reducer } from './../utils/reducers/formReducer'
+
+const initialState = {
+    inputValues: {
+        firstName: '',
+        lastName: '',
+        email: '',
+        about: '',
+    },
+    inputValidities: {
+        firstName: false,
+        lastName: false,
+        email: false,
+        about: false,
+    },
+    formIsValid: false,
+}
 
 const SettingsScreen = () => {
+    const [formState, dispatchFormState] = useReducer(reducer, initialState)
+
+    const inputChangedHandler = useCallback(
+        (inputId, inputValue) => {
+            const result = validateInput(inputId, inputValue)
+            dispatchFormState({ inputId, validationResult: result, inputValue })
+        },
+        [dispatchFormState]
+    )
     return (
-        <View style={styles.container}>
-            <PageTitle text="Settings" />
-        </View>
+        <PageContainer>
+            <ScrollView>
+                <PageTitle text="Settings" />
+                <Input
+                    id="firstName"
+                    label="First name"
+                    icon="user-o"
+                    iconPack={FontAwesome}
+                    onInputChanged={inputChangedHandler}
+                    autoCapitalize="none"
+                    errorText={formState.inputValidities['firstName']}
+                />
+
+                <Input
+                    id="lastName"
+                    label="Last name"
+                    icon="user-o"
+                    iconPack={FontAwesome}
+                    onInputChanged={inputChangedHandler}
+                    autoCapitalize="none"
+                    errorText={formState.inputValidities['lastName']}
+                />
+
+                <Input
+                    id="email"
+                    label="Email"
+                    icon="mail"
+                    iconPack={Feather}
+                    onInputChanged={inputChangedHandler}
+                    keyboardType="email-address"
+                    autoCapitalize="none"
+                    errorText={formState.inputValidities['email']}
+                />
+
+                <Input
+                    id="about"
+                    label="About"
+                    icon="user-o"
+                    iconPack={FontAwesome}
+                    onInputChanged={inputChangedHandler}
+                    autoCapitalize="none"
+                    errorText={formState.inputValidities['about']}
+                />
+            </ScrollView>
+        </PageContainer>
     )
 }
 
