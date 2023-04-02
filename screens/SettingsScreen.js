@@ -7,6 +7,7 @@ import { validateInput } from './../utils/action/formActions'
 import Input from './../components/Input'
 import { useReducer } from 'react'
 import { reducer } from './../utils/reducers/formReducer'
+import { useSelector } from 'react-redux'
 
 const initialState = {
     inputValues: {
@@ -25,6 +26,8 @@ const initialState = {
 }
 
 const SettingsScreen = () => {
+    const userData = useSelector((state) => state.auth.userData)
+
     const [formState, dispatchFormState] = useReducer(reducer, initialState)
 
     const inputChangedHandler = useCallback(
@@ -46,6 +49,7 @@ const SettingsScreen = () => {
                     onInputChanged={inputChangedHandler}
                     autoCapitalize="none"
                     errorText={formState.inputValidities['firstName']}
+                    initialValue={userData.firstName}
                 />
 
                 <Input
@@ -56,6 +60,7 @@ const SettingsScreen = () => {
                     onInputChanged={inputChangedHandler}
                     autoCapitalize="none"
                     errorText={formState.inputValidities['lastName']}
+                    initialValue={userData.lastName}
                 />
 
                 <Input
@@ -67,6 +72,7 @@ const SettingsScreen = () => {
                     keyboardType="email-address"
                     autoCapitalize="none"
                     errorText={formState.inputValidities['email']}
+                    initialValue={userData.email}
                 />
 
                 <Input

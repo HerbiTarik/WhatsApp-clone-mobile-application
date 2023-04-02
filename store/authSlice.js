@@ -17,7 +17,7 @@ const authSlice = createSlice({
         setDidTryAutoLogin: (state, action) => {
             state.didTryAutoLogin = true
         },
-        logout(state, action) {
+        logout: (state, action) => {
             state.token = null
             state.userData = null
             state.didTryAutoLogin = false

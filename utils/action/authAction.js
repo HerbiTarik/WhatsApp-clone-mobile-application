@@ -38,7 +38,6 @@ export const signUp = (firstName, lastName, email, password) => {
                 dispatch(userLogout())
             }, millisecondsUntilExpiry)
         } catch (error) {
-            console.log(error)
             const errorCode = error.code
 
             let message = 'Something went wrong.'
@@ -79,7 +78,6 @@ export const signIn = (email, password) => {
                 dispatch(userLogout())
             }, millisecondsUntilExpiry)
         } catch (error) {
-            console.log(error)
             const errorCode = error.code
 
             let message = 'Something went wrong.'
