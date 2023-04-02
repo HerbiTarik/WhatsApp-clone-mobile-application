@@ -1,33 +1,40 @@
-import { View, Text, StyleSheet, ScrollView } from 'react-native'
+import {
+    View,
+    Text,
+    StyleSheet,
+    ScrollView,
+    ActivityIndicator,
+} from 'react-native'
 import PageTitle from './../components/PageTitle'
 import PageContainer from './../components/PageContainer'
 import { Feather, FontAwesome } from '@expo/vector-icons'
-import { useCallback } from 'react'
+import { useCallback, useState } from 'react'
 import { validateInput } from './../utils/action/formActions'
 import Input from './../components/Input'
 import { useReducer } from 'react'
 import { reducer } from './../utils/reducers/formReducer'
 import { useSelector } from 'react-redux'
-
-const initialState = {
-    inputValues: {
-        firstName: '',
-        lastName: '',
-        email: '',
-        about: '',
-    },
-    inputValidities: {
-        firstName: false,
-        lastName: false,
-        email: false,
-        about: false,
-    },
-    formIsValid: false,
-}
+import colors from '../constants/colors'
+import SubmitButton from '../components/SubmitButton'
 
 const SettingsScreen = () => {
+    const [isLoading, setIsLoading] = useState(false)
     const userData = useSelector((state) => state.auth.userData)
-
+    const initialState = {
+        inputValues: {
+            firstName: userData.firstName || '',
+            lastName: userData.lastName || '',
+            email: userData.email || '',
+            about: userData.about || '',
+        },
+        inputValidities: {
+            firstName: undefined,
+            lastName: undefined,
+            email: undefined,
+            about: undefined,
+        },
+        formIsValid: false,
+    }
     const [formState, dispatchFormState] = useReducer(reducer, initialState)
 
     const inputChangedHandler = useCallback(
@@ -37,6 +44,8 @@ const SettingsScreen = () => {
         },
         [dispatchFormState]
     )
+
+    const saveHandler = () => {}
     return (
         <PageContainer>
             <ScrollView>
@@ -84,6 +93,20 @@ const SettingsScreen = () => {
                     autoCapitalize="none"
                     errorText={formState.inputValidities['about']}
                 />
+                {isLoading ? (
+                    <ActivityIndicator
+                        size={'small'}
+                        color={colors.primary}
+                        style={{ marginTop: 10 }}
+                    />
+                ) : (
+                    <SubmitButton
+                        title="Save"
+                        onPress={saveHandler}
+                        style={{ marginTop: 20 }}
+                        disabled={!formState.formIsValid}
+                    />
+                )}
             </ScrollView>
         </PageContainer>
     )
