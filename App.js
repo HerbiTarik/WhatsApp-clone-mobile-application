@@ -10,7 +10,7 @@ import { store } from './store/store'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 LogBox.ignoreLogs(['AsyncStorage has been extracted'])
-// AsyncStorage.clear() // le commenter puis le décommenter pour le réinitialiser (supprimer ce qui a dans le storage)
+AsyncStorage.clear() // le commenter puis le décommenter pour le réinitialiser (supprimer ce qui a dans le storage)
 
 SplashScreen.preventAutoHideAsync() //Garder l'écran d'accueil(de démarrage) visible pendant que nous récupérons des ressources
 
