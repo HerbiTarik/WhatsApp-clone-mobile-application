@@ -24,13 +24,16 @@ const SettingsScreen = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [showSuccessMessage, setShowSuccessMessage] = useState(false)
     const userData = useSelector((state) => state.auth.userData)
-    console.log(userData)
+    const firstName = userData.firstName || ''
+    const lastName = userData.lastName || ''
+    const email = userData.email || ''
+    const about = userData.about || ''
     const initialState = {
         inputValues: {
-            firstName: userData.firstName || '',
-            lastName: userData.lastName || '',
-            email: userData.email || '',
-            about: userData.about || '',
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            about: about,
         },
         inputValidities: {
             firstName: undefined,
@@ -49,7 +52,7 @@ const SettingsScreen = () => {
         },
         [dispatchFormState]
     )
-    const saveHandler = async () => {
+    const saveHandler = useCallback(async () => {
         const updatedValues = formState.inputValues
         try {
             setIsLoading(true)
@@ -64,7 +67,19 @@ const SettingsScreen = () => {
         } finally {
             setIsLoading(false)
         }
+    }, [formState, dispatch])
+
+    const hasChanges = () => {
+        const currentValues = formState.inputValues
+        console.log(currentValues)
+        return (
+            currentValues.firstName != firstName ||
+            currentValues.lastName != lastName ||
+            currentValues.email != email ||
+            currentValues.about != about
+        )
     }
+    console.log(firstName)
     return (
         <PageContainer>
             <ScrollView>
@@ -121,20 +136,22 @@ const SettingsScreen = () => {
                             style={{ marginTop: 10 }}
                         />
                     ) : (
-                        <SubmitButton
-                            title="Save"
-                            onPress={saveHandler}
-                            style={{ marginTop: 20 }}
-                            disabled={!formState.formIsValid}
-                        />
+                        hasChanges() && (
+                            <SubmitButton
+                                title="Save"
+                                onPress={saveHandler}
+                                style={{ marginTop: 20 }}
+                                disabled={!formState.formIsValid}
+                            />
+                        )
                     )}
-                    <SubmitButton
-                        title="Logout"
-                        onPress={() => dispatch(userLogout())}
-                        style={{ marginTop: 20 }}
-                        color={colors.red}
-                    />
                 </View>
+                <SubmitButton
+                    title="Logout"
+                    onPress={() => dispatch(userLogout())}
+                    style={{ marginTop: 20 }}
+                    color={colors.red}
+                />
             </ScrollView>
         </PageContainer>
     )
