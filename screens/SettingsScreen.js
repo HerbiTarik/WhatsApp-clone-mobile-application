@@ -17,11 +17,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import colors from '../constants/colors'
 import SubmitButton from '../components/SubmitButton'
 import { updateSignedInUserData, userLogout } from '../utils/action/authAction'
+import { updateLoggedInUserData } from '../store/authSlice'
 
 const SettingsScreen = () => {
     const dispatch = useDispatch()
     const [isLoading, setIsLoading] = useState(false)
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false)
     const userData = useSelector((state) => state.auth.userData)
+    console.log(userData)
     const initialState = {
         inputValues: {
             firstName: userData.firstName || '',
@@ -51,6 +54,11 @@ const SettingsScreen = () => {
         try {
             setIsLoading(true)
             updateSignedInUserData(userData.userId, updatedValues)
+            dispatch(updateLoggedInUserData({ newData: updatedValues }))
+            setShowSuccessMessage(true)
+            setTimeout(() => {
+                setShowSuccessMessage(false)
+            }, 3000)
         } catch (error) {
             console.log(error)
         } finally {
@@ -104,26 +112,29 @@ const SettingsScreen = () => {
                     autoCapitalize="none"
                     errorText={formState.inputValidities['about']}
                 />
-                {isLoading ? (
-                    <ActivityIndicator
-                        size={'small'}
-                        color={colors.primary}
-                        style={{ marginTop: 10 }}
-                    />
-                ) : (
+                <View style={{ marginTop: 20 }}>
+                    {showSuccessMessage && <Text>Saved !</Text>}
+                    {isLoading ? (
+                        <ActivityIndicator
+                            size={'small'}
+                            color={colors.primary}
+                            style={{ marginTop: 10 }}
+                        />
+                    ) : (
+                        <SubmitButton
+                            title="Save"
+                            onPress={saveHandler}
+                            style={{ marginTop: 20 }}
+                            disabled={!formState.formIsValid}
+                        />
+                    )}
                     <SubmitButton
-                        title="Save"
-                        onPress={saveHandler}
+                        title="Logout"
+                        onPress={() => dispatch(userLogout())}
                         style={{ marginTop: 20 }}
-                        disabled={!formState.formIsValid}
+                        color={colors.red}
                     />
-                )}
-                <SubmitButton
-                    title="Logout"
-                    onPress={() => dispatch(userLogout())}
-                    style={{ marginTop: 20 }}
-                    color={colors.red}
-                />
+                </View>
             </ScrollView>
         </PageContainer>
     )
