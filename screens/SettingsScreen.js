@@ -83,7 +83,7 @@ const SettingsScreen = () => {
     console.log(firstName)
     return (
         <PageContainer>
-            <ScrollView>
+            <ScrollView contentContainerStyle={styles.formContainer}>
                 <PageTitle text="Settings" />
                 <ProfileImage size={80} />
                 <Input
@@ -162,6 +162,9 @@ const SettingsScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+    },
+    formContainer: {
+        alignItems: 'center',
     },
 })
 export default SettingsScreen
