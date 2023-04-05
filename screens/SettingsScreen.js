@@ -18,6 +18,7 @@ import colors from '../constants/colors'
 import SubmitButton from '../components/SubmitButton'
 import { updateSignedInUserData, userLogout } from '../utils/action/authAction'
 import { updateLoggedInUserData } from '../store/authSlice'
+import ProfileImage from './../components/ProfileImage'
 
 const SettingsScreen = () => {
     const dispatch = useDispatch()
@@ -84,6 +85,7 @@ const SettingsScreen = () => {
         <PageContainer>
             <ScrollView>
                 <PageTitle text="Settings" />
+                <ProfileImage size={80} />
                 <Input
                     id="firstName"
                     label="First name"
