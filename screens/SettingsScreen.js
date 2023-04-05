@@ -13,12 +13,13 @@ import { validateInput } from './../utils/action/formActions'
 import Input from './../components/Input'
 import { useReducer } from 'react'
 import { reducer } from './../utils/reducers/formReducer'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import colors from '../constants/colors'
 import SubmitButton from '../components/SubmitButton'
-import { updateSignedInUserData } from '../utils/action/authAction'
+import { updateSignedInUserData, userLogout } from '../utils/action/authAction'
 
 const SettingsScreen = () => {
+    const dispatch = useDispatch()
     const [isLoading, setIsLoading] = useState(false)
     const userData = useSelector((state) => state.auth.userData)
     const initialState = {
@@ -117,6 +118,12 @@ const SettingsScreen = () => {
                         disabled={!formState.formIsValid}
                     />
                 )}
+                <SubmitButton
+                    title="Logout"
+                    onPress={() => dispatch(userLogout())}
+                    style={{ marginTop: 20 }}
+                    color={colors.red}
+                />
             </ScrollView>
         </PageContainer>
     )

@@ -14,6 +14,7 @@ const SubmitButton = (props) => {
                 ...styles.button,
                 ...{ backgroundColor: bgColor },
                 ...props.style,
+                ...props.color,
             }}
         >
             <Text style={{ color: props.disabled ? colors.gray : 'white' }}>
