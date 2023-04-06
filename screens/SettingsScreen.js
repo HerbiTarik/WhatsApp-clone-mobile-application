@@ -72,7 +72,6 @@ const SettingsScreen = () => {
 
     const hasChanges = () => {
         const currentValues = formState.inputValues
-        console.log(currentValues)
         return (
             currentValues.firstName != firstName ||
             currentValues.lastName != lastName ||
@@ -80,7 +79,6 @@ const SettingsScreen = () => {
             currentValues.about != about
         )
     }
-    console.log(firstName)
     return (
         <PageContainer>
             <ScrollView contentContainerStyle={styles.formContainer}>

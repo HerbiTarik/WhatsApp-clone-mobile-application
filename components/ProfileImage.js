@@ -1,11 +1,15 @@
-import { View, Text, Image, StyleSheet } from 'react-native'
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
 import userImage from '../assets/images/userImage.jpeg'
 import colors from '../constants/colors'
 import { FontAwesome } from '@expo/vector-icons'
+import { launchImagePicker } from '../utils/imagePickerHelper'
 
 const ProfileImage = (props) => {
+    const pickImage = () => {
+        launchImagePicker()
+    }
     return (
-        <View>
+        <TouchableOpacity onPress={pickImage}>
             <Image
                 source={userImage}
                 style={{
@@ -16,7 +20,7 @@ const ProfileImage = (props) => {
             <View style={styles.editIconContainer}>
                 <FontAwesome name="pencil" size={15} color="black" />
             </View>
-        </View>
+        </TouchableOpacity>
     )
 }
 
