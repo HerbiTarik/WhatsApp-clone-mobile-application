@@ -3,15 +3,26 @@ import userImage from '../assets/images/userImage.jpeg'
 import colors from '../constants/colors'
 import { FontAwesome } from '@expo/vector-icons'
 import { launchImagePicker } from '../utils/imagePickerHelper'
+import { useState } from 'react'
 
 const ProfileImage = (props) => {
-    const pickImage = () => {
-        launchImagePicker()
+    const source = props.uri ? { uri: props.uri } : userImage
+    const [image, setImage] = useState(source)
+    const pickImage = async () => {
+        try {
+            const tempUri = await launchImagePicker()
+
+            if (!tempUri) return //S'il n y a pas d'url alors on ne fera rien
+            //Upload the image
+            setImage({ uri: tempUri })
+        } catch (error) {
+            console.logs(error)
+        }
     }
     return (
         <TouchableOpacity onPress={pickImage}>
             <Image
-                source={userImage}
+                source={image}
                 style={{
                     ...styles.image,
                     ...{ width: props.size, height: props.size },
